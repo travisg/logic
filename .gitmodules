@@ -1,0 +1,3 @@
+[submodule "ice-chips-verilog"]
+	path = ice-chips-verilog
+	url = https://github.com/TimRudy/ice-chips-verilog
