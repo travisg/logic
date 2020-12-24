@@ -1,0 +1,15 @@
+build*/
+*.swp
+*~
+tags
+TAGS
+cscope.out
+local.mk
+*.bin
+*.lst
+*.pyc
+*.out
+*.hex
+*.gtkw
+*.vcd
+*.bak
