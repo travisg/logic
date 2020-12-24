@@ -26,10 +26,10 @@ module testbench(
     input clk
 );
 
-localparam trace = 1;
+localparam trace = 0;
 
 int count = 0;
-logic rst = count < 5;
+wire rst = count < 5;
 
 always_ff @(posedge clk) begin
     count <= count + 1;
@@ -40,5 +40,34 @@ always_comb begin
         $display("count %d, rst %d", count, rst);
 end
 
-endmodule
+/// test of our ALU module
+reg [15:0] A = 0;
+reg [15:0] B = 1;
+reg C_in = 1; // carry in
+reg [3:0] select = 'b1001; // add
+reg mode = 0; // alu ops
 
+wire [15:0] out;
+wire C_out;
+wire Equal;
+
+alu_181 alu(
+    .A_in(A),
+    .B_in(B),
+    .out(out),
+    .mode(mode),
+    .op_in(select),
+    .carry_in(C_in),
+    .carry_out(C_out),
+    .equal_out(Equal)
+);
+
+always_ff @(posedge clk) begin
+    A <= A + 1;
+    //A <= $random;
+    //B <= $random;
+    //A <= out;
+    $display("A 0x%x, B 0x%x, out 0x%x, carry_out %d", A, B, out, C_out);
+end
+
+endmodule // testbench

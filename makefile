@@ -8,7 +8,7 @@ SRC := \
 #memory.v \
 #regfile.v
 
-TEST_SRC = testbench.v
+TEST_SRC = testbench.v alu_181.v
 SIM_SRC = sim.v dpi_memory.v
 
 EXTRADEPS := test.hex
@@ -17,7 +17,7 @@ all:: $(TESTBENCH)
 
 $(TESTBENCH): $(TEST_SRC) $(SRC) testbench.cpp makefile
 	mkdir -p $(dir $@)
-	verilator -Wno-fatal --top-module testbench --Mdir $(dir $@) -Icpu --exe testbench.cpp --cc -CFLAGS "-DTRACE=1" --trace $(TEST_SRC) $(SRC)
+	verilator -Wno-fatal --top-module testbench --Mdir $(dir $@) -Iice-chips-verilog/source-7400 --exe testbench.cpp --cc -CFLAGS "-DTRACE=1" --trace $(TEST_SRC) $(SRC)
 	make -C $(dir $@) -f Vtestbench.mk
 
 #all:: $(SIMULATOR)
@@ -33,7 +33,7 @@ sim: $(SIMULATOR) test.hex
 
 vcd: $(TESTBENCH)
 	cd $(BUILD); \
-	./Vtestbench -c 100
+	./Vtestbench -c 500
 
 wave: vcd
 	gtkwave $(BUILD)/trace.vcd
