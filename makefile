@@ -8,7 +8,7 @@ SRC := \
 #memory.v \
 #regfile.v
 
-TEST_SRC = testbench.v alu_181.v
+TEST_SRC = src/alu_181_test.v src/alu_181.v
 SIM_SRC = sim.v dpi_memory.v
 
 EXTRADEPS := test.hex
